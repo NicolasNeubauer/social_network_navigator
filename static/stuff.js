@@ -198,7 +198,14 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	    .attr("y2", function(d) { return d.target.y + offsety; });
 
 	node.attr("cx", function(d) { return d.x + offsetx; })
-	    .attr("cy", function(d) { return d.y + offsety; });
+	    .attr("cy", function(d) { return d.y + offsety; })
+	.style("fill", function(d) { 
+	    if (selected==d)
+		return color(3);
+	    if (neighboring(d, selected))
+		return color(4);
+	    return color(d.group); })
+
     });
 
 
