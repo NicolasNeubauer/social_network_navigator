@@ -10,6 +10,7 @@ function iterateOverFriends(friends, nodes, namesToIds, i, namelinks, fn) {
     }
 
     nodes.push({'name': friend['name'],
+		'id': friend['id'],
 		'group': 1});
     namesToIds[friend['name']] = i;
     FB.api('/' + friend['id'] + '/mutualfriends', function(response) {
@@ -37,6 +38,7 @@ function iterateOverFriendsParallel(friends, nodes, namesToIds, i, namelinks, fn
     $("#loading_text").text('Waiting for ' + (waiting) + '/' + numFriends + ' friends...');
     $.each(friends, function(index, friend) {
 	nodes.push({'name': friend['name'],
+		    'id': friend['id'],
 		    'group': 1});
 	namesToIds[friend['name']] = index;	
 	$("#loading_text").text('Friend ' + (i+1) + '/' + numFriends + ' loading...');
@@ -58,8 +60,14 @@ function iterateOverFriendsParallel(friends, nodes, namesToIds, i, namelinks, fn
 }
 
 
-
+var built = false;
 function buildGraphChart(nodes, namelinks, namesToIds, height) {
+    if (built)
+    {
+	console.log('already built! this shouldn\'t happen.');
+	return;
+    }
+    built = true;
 
     var 
     main = $("#main");
@@ -113,7 +121,8 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	.attr("class", "node")
 	.attr("r", 4)
 	.style("fill", function(d) { return color(d.group); })
-	.call(force.drag);
+	.on("click", function(d,i) { window.open('https://facebook.com/' + d['id'], '_blank'); })
+	.call(force.drag)
 
     node.append("title")
 	.text(function(d) { return d.name; });
