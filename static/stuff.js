@@ -27,6 +27,10 @@ function iterateOverFriends(friends, nodes, namesToIds, i, namelinks, fn) {
 
 function iterateOverFriendsParallel(friends, nodes, namesToIds, i, namelinks, fn) {
     var waiting = 0;
+    if (!length) {
+	alert('Friends couldn\'t be loaded, please reload!');
+	return;
+    }
     var numFriends = friends.length;
     var waiting = numFriends;
 
