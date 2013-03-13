@@ -43,6 +43,7 @@ function iterateOverFriendsParallel(friends, nodes, namesToIds, i, namelinks, fn
 
     $("#loading_text").text('Waiting for ' + (waiting) + '/' + numFriends + ' friends...');
     $.each(friends, function(index, friend) {
+	console.log(friend['name']);
 	nodes.push({'name': friend['name'],
 		    'id': friend['id'],
 		    'group': 1});
