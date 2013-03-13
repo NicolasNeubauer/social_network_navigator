@@ -43,11 +43,13 @@ function iterateOverFriendsParallel(friends, nodes, namesToIds, i, namelinks, fn
 		namelinks.push({'source': friend['name'],
 				'target': otherfriend['name']});
 		waiting -= 1;
+		$("#loading_text").text('Waiting for ' + (waiting) + '/' + numFriends + ' friends...');
 		if (waiting==0) {
 		    $("#loading_text").hide();
 		    fn();
 		}
 	    });
+	});
     });
 }
 
