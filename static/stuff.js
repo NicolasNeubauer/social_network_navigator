@@ -57,7 +57,7 @@ function iterateOverFriendsParallel(friends, nodes, namesToIds, i, namelinks, fn
 				'target': otherfriend['name']});
 		$("#loading_text").text('Waiting for ' + (waiting) + '/' + numFriends + ' friends...');
 		if (waiting==0) {
-		    log('waiting==0!');
+		    console.log('waiting==0!');
 		    $("#loading_text").hide();
 		    fn();
 		}
@@ -71,7 +71,7 @@ var built = false;
 function buildGraphChart(nodes, namelinks, namesToIds, height) {
     if (built)
     {
-	log('already built! this shouldn\'t happen.');
+	console.log('already built! this shouldn\'t happen.');
 	return;
     }
     built = true;
@@ -81,7 +81,7 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
     main.height(height);
     var width = $("#main").width();
 
-    log('appending svg');
+    console.log('appending svg');
     svg = d3.select("#main").append("svg")
 	.attr("width", width)
 	.attr("height", height);
@@ -117,6 +117,7 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
     if (height>width)
 	offsety = (height-width)/2;
 
+    console.log(offsetx, offsety, 'offsets');
 
     force
 	.nodes(nodes)
@@ -137,7 +138,7 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	.attr("r", 4)
 	.style("fill", function(d) { return color(d.group); })
 	.on("click", function(d,i) { 
-	    log('click', d, i);
+	    console.log('click', d, i);
 	    window.open('https://facebook.com/' + d['id'], '_blank'); 
 	})
 	.call(force.drag)
@@ -215,6 +216,6 @@ function init(fn) {
 }
 
 $(function() {
-    log('starting');
+    console.log('starting');
     init();
 });
