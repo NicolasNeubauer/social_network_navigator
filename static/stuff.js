@@ -49,20 +49,21 @@ function iterateOverFriendsParallel(friends, nodes, namesToIds, i, namelinks, fn
 	namesToIds[friend['name']] = index;	
 	$("#loading_text").text('Friend ' + (i+1) + '/' + numFriends + ' loading...');
 	FB.api('/' + friend['id'] + '/mutualfriends', function(response) {
-	    waiting -= 1;
-	    console.log('waiting: ', waiting);
 	    $.each(response['data'], function(index, otherfriend) {
 		if (friend['id']<otherfriend['id'])
 		    return;
 		namelinks.push({'source': friend['name'],
 				'target': otherfriend['name']});
-		$("#loading_text").text('Waiting for ' + (waiting) + '/' + numFriends + ' friends...');
-		if (waiting==0) {
-		    console.log('waiting==0!');
-		    $("#loading_text").hide();
-		    fn();
-		}
 	    });
+	    waiting -= 1;
+	    $("#loading_text").text('Waiting for ' + (waiting) + '/' + numFriends + ' friends...');
+	    console.log('waiting: ', waiting);
+	    if (waiting==0) {
+		console.log('waiting==0!');
+		$("#loading_text").hide();
+		fn();
+	    }
+
 	});
     });
 }
