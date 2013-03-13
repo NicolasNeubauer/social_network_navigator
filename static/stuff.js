@@ -87,7 +87,7 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
     var force = d3.layout.force()
 	.charge(-120)
 	.linkDistance(20)
-	.size([width, height]);
+	.size([width*0.8, height*0.8]);
 
 
     force
