@@ -43,7 +43,6 @@ function iterateOverFriendsParallel(friends, nodes, namesToIds, i, namelinks, fn
 
     $("#loading_text").text('Waiting for ' + (waiting) + '/' + numFriends + ' friends...');
     $.each(friends, function(index, friend) {
-	console.log(friend['name']);
 	nodes.push({'name': friend['name'],
 		    'id': friend['id'],
 		    'group': 1});
@@ -51,6 +50,7 @@ function iterateOverFriendsParallel(friends, nodes, namesToIds, i, namelinks, fn
 	$("#loading_text").text('Friend ' + (i+1) + '/' + numFriends + ' loading...');
 	FB.api('/' + friend['id'] + '/mutualfriends', function(response) {
 	    waiting -= 1;
+	    console.log('waiting: ', waiting);
 	    $.each(response['data'], function(index, otherfriend) {
 		if (friend['id']<otherfriend['id'])
 		    return;
@@ -82,7 +82,6 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
     main.height(height);
     var width = $("#main").width();
 
-    console.log('appending svg');
     svg = d3.select("#main").append("svg")
 	.attr("width", width)
 	.attr("height", height);
@@ -106,8 +105,8 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
     var color = d3.scale.category20();
 
     var force = d3.layout.force()
-	.charge(-120)
-	.linkDistance(10)
+	.charge(-60)
+	.linkDistance(20)
 	.size([Math.min(width, height),
 	       Math.min(width, height)]);
 
@@ -120,17 +119,52 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 
     console.log(offsetx, offsety, 'offsets');
 
+
+    // http://stackoverflow.com/questions/8739072/highlight-selected-node-its-links-and-its-children-in-a-d3-js-force-directed-g
+    var linkedByIndex = {};
+    links.forEach(function(d) {
+	linkedByIndex[d.source.index + "," + d.target.index] = 1;
+    });
+
+    function neighboring(a, b) {
+	return linkedByIndex[a.index + "," + b.index];
+    }    
+
+
     force
 	.nodes(nodes)
 	.links(links)
 	.start()
-	.theta(0.05);
+	.theta(0.1);
+
+    var selected = null;
+    var opacity = 0.5;
+
+    function fade(opacity) {
+        return function(d, i) {
+            //fade all elements
+            svg.selectAll("circle, line").style("opacity", opacity);
+
+            var associated_links = svg.selectAll("line").filter(function(d) {
+                return d.source.index == i || d.target.index == i;
+            }).each(function(dLink, iLink) {
+                //unfade links and nodes connected to the current node
+                d3.select(this).style("opacity", 1);
+                //THE FOLLOWING CAUSES: Uncaught TypeError: Cannot call method 'setProperty' of undefined
+                d3.select(dLink.source).style("opacity", 1);
+                d3.select(dLink.target).style("opacity", 1);
+            });
+        };
+    }
 
     var link = svg.selectAll(".link")
 	.data(links)
 	.enter().append("line")
 	.attr("class", "link")
-	.style("stroke-width", function(d) { return Math.sqrt(d.value); });
+	.style("stroke-width", function(d) { return Math.sqrt(d.value); })
+	.style("opacity", function(o) {
+	    return o.source === d || o.target === d ? 1 : opacity;
+	});
 
     var node = svg.selectAll(".node")
 	.data(nodes)
@@ -139,9 +173,13 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	.attr("r", 4)
 	.style("fill", function(d) { return color(d.group); })
 	.on("click", function(d,i) { 
-	    console.log('click', d, i);
 	    window.open('https://facebook.com/' + d['id'], '_blank'); 
 	})
+	.style("opacity", function(d) {
+	    return neighboring(selected, d) ? 1 : opacity;
+	});
+	.on("mouseover", fade(.1))
+	.on("mouseout", fade(1));;
 	.call(force.drag)
 
     node.append("title")
@@ -156,6 +194,8 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	node.attr("cx", function(d) { return d.x + offsetx; })
 	    .attr("cy", function(d) { return d.y + offsety; });
     });
+
+
 }
 
 
@@ -217,6 +257,5 @@ function init(fn) {
 }
 
 $(function() {
-    console.log('starting');
     init();
 });
