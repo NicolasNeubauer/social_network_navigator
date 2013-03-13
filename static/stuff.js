@@ -123,12 +123,14 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
     links.forEach(function(d) {
 	linkedByIndex[d.source.index + "," + d.target.index] = 1;
     });
+    console.log(linkedByIndex);
 
     function neighboring(a, b) {
 	if (a==null || b==null)
 	    return false;
-	console.log('neighboring!');
-	return linkedByIndex[a.index + "," + b.index];
+	var ind = a.index + "," + b.index;
+	console.log('neighboring!', ind);
+	return linkedByIndex[ind];
     }    
 
 
