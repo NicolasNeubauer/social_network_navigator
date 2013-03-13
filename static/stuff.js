@@ -57,9 +57,7 @@ function iterateOverFriendsParallel(friends, nodes, namesToIds, i, namelinks, fn
 	    });
 	    waiting -= 1;
 	    $("#loading_text").text('Waiting for ' + (waiting) + '/' + numFriends + ' friends...');
-	    console.log('waiting: ', waiting);
 	    if (waiting==0) {
-		console.log('waiting==0!');
 		$("#loading_text").hide();
 		fn();
 	    }
@@ -101,7 +99,6 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 			'weight': 1});
 	}
     });
-
 
     var color = d3.scale.category20();
 
@@ -165,8 +162,8 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	.enter().append("line")
 	.attr("class", "link")
 	.style("stroke-width", function(d) { return Math.sqrt(d.value); })
-	.style("opacity", function(o) {
-	    return o.source === selected || o.target === selected ? 1 : opacity;
+	.style("color", function(o) {
+	    return o.source === selected || o.target === selected ? 'green' : 'black';
 	});
 
     var node = svg.selectAll(".node")
@@ -174,14 +171,17 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	.enter().append("circle")
 	.attr("class", "node")
 	.attr("r", 4)
-	.style("fill", function(d) { return color(d.group); })
+	.style("fill", function(d) { if (selected==d)
+	    return color(10);
+
+	    return color(d.group); })
 	.on("click", function(d,i) { 
 	    window.open('https://facebook.com/' + d['id'], '_blank'); 
 	})
 	.style("opacity", function(d) {
 	    return neighboring(selected, d) ? 1 : opacity;
 	})
-	.on("mouseover", function(d, i) { selected = d; })
+	.on("mouseover", function(d, i) { console.log(d); selected = d; })
 	.on("mouseout", function(d, i) {selected = null;})
 	.call(force.drag)
 
