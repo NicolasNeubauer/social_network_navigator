@@ -94,7 +94,7 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	.nodes(nodes)
 	.links(links)
 	.start()
-	.theta(0.2);
+	.theta(0.05);
 
     var link = svg.selectAll(".link")
 	.data(links)
