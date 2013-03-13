@@ -1,4 +1,31 @@
+var numFriends = 0;
 function iterateOverFriends(friends, nodes, namesToIds, i, namelinks, fn) {
+    if (i==0)
+	numFriends = friends.length;
+    var friend = friends.pop();
+    if (!friend) {
+	$("#loading_text").hide();
+	fn();
+	return;
+    }
+
+    nodes.push({'name': friend['name'],
+		'group': 1});
+    namesToIds[friend['name']] = i;
+    FB.api('/' + friend['id'] + '/mutualfriends', function(response) {
+	$("#loading_text").text('Friend ' + (i+1) + '/' + numFriends + ' loading...');
+	$.each(response['data'], function(index, otherfriend) {
+	    if (friend['id']<otherfriend['id'])
+		return;
+	    namelinks.push({'source': friend['name'],
+			'target': otherfriend['name']})
+	});
+	iterateOverFriends(friends, nodes, namesToIds, i+1, namelinks, fn);
+    });
+}
+
+
+function iterateOverFriendsParallel(friends, nodes, namesToIds, i, namelinks, fn) {
     var friend = friends.pop();
     if (!friend) {
 	fn();
@@ -18,6 +45,8 @@ function iterateOverFriends(friends, nodes, namesToIds, i, namelinks, fn) {
 	iterateOverFriends(friends, nodes, namesToIds, i+1, namelinks, fn);
     });
 }
+
+
 
 function buildGraphChart(nodes, namelinks, namesToIds, height) {
 
