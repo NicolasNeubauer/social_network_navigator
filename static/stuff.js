@@ -1,3 +1,9 @@
+function log(s) {
+    if (console)
+	if (console.log)
+	    console.log(s);
+}
+
 var numFriends = 0;
 function iterateOverFriends(friends, nodes, namesToIds, i, namelinks, fn) {
     if (i==0)
@@ -51,6 +57,7 @@ function iterateOverFriendsParallel(friends, nodes, namesToIds, i, namelinks, fn
 				'target': otherfriend['name']});
 		$("#loading_text").text('Waiting for ' + (waiting) + '/' + numFriends + ' friends...');
 		if (waiting==0) {
+		    log('waiting==0!');
 		    $("#loading_text").hide();
 		    fn();
 		}
@@ -64,7 +71,7 @@ var built = false;
 function buildGraphChart(nodes, namelinks, namesToIds, height) {
     if (built)
     {
-	console.log('already built! this shouldn\'t happen.');
+	log('already built! this shouldn\'t happen.');
 	return;
     }
     built = true;
