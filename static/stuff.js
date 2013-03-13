@@ -26,23 +26,28 @@ function iterateOverFriends(friends, nodes, namesToIds, i, namelinks, fn) {
 
 
 function iterateOverFriendsParallel(friends, nodes, namesToIds, i, namelinks, fn) {
-    var friend = friends.pop();
-    if (!friend) {
-	fn();
-	return;
-    }
-    console.log(friend['name']);
-    nodes.push({'name': friend['name'],
-		'group': 1});
-    namesToIds[friend['name']] = i;
-    FB.api('/' + friend['id'] + '/mutualfriends', function(response) {
-	$.each(response['data'], function(index, otherfriend) {
-	    if (friend['id']<otherfriend['id'])
-		return;
-	    namelinks.push({'source': friend['name'],
-			'target': otherfriend['name']})
-	});
-	iterateOverFriends(friends, nodes, namesToIds, i+1, namelinks, fn);
+    var waiting = 0;
+    var numFriends = friends.length;
+    var waiting = numFriends;
+
+    $("#loading_text").text('Waiting for ' + (waiting) + '/' + numFriends + ' friends...');
+    $.each(friends, function(index, friend) {
+	nodes.push({'name': friend['name'],
+		    'group': 1});
+	namesToIds[friend['name']] = index;	
+	$("#loading_text").text('Friend ' + (i+1) + '/' + numFriends + ' loading...');
+	FB.api('/' + friend['id'] + '/mutualfriends', function(response) {
+	    $.each(response['data'], function(index, otherfriend) {
+		if (friend['id']<otherfriend['id'])
+		    return;
+		namelinks.push({'source': friend['name'],
+				'target': otherfriend['name']});
+		waiting -= 1;
+		if (waiting==0) {
+		    $("#loading_text").hide();
+		    fn();
+		}
+	    });
     });
 }
 
@@ -127,7 +132,7 @@ function doit(height) {
 	namelinks = [],
 	namesToIds = {};
 
-	iterateOverFriends(
+	iterateOverFriendsParallel(
 	    response['data'], // .slice(0,50
 	    nodes, 
 	    namesToIds,
