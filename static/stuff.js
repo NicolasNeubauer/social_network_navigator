@@ -127,6 +127,8 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
     });
 
     function neighboring(a, b) {
+	if (a==null || b==null)
+	    return false;
 	return linkedByIndex[a.index + "," + b.index];
     }    
 
