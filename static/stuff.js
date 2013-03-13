@@ -163,7 +163,7 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	.attr("class", "link")
 	.style("stroke-width", function(d) { return Math.sqrt(d.value); })
 	.style("opacity", function(o) {
-	    return o.source === d || o.target === d ? 1 : opacity;
+	    return o.source === selected || o.target === selected ? 1 : opacity;
 	});
 
     var node = svg.selectAll(".node")
