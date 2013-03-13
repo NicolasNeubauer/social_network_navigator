@@ -109,6 +109,13 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	.size([Math.min(width, height),
 	       Math.min(width, height)]);
 
+    var offsetx = 0;
+    if (width>height)
+	offsetx = (width-height)/2;
+    var offsety = 0;
+    if (height>width)
+	offsety = (height-width)/2;
+
 
     force
 	.nodes(nodes)
@@ -128,20 +135,23 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	.attr("class", "node")
 	.attr("r", 4)
 	.style("fill", function(d) { return color(d.group); })
-	.on("click", function(d,i) { window.open('https://facebook.com/' + d['id'], '_blank'); })
+	.on("click", function(d,i) { 
+	    log('click', d, i);
+	    window.open('https://facebook.com/' + d['id'], '_blank'); 
+	})
 	.call(force.drag)
 
     node.append("title")
 	.text(function(d) { return d.name; });
 
     force.on("tick", function() {
-	link.attr("x1", function(d) { return d.source.x; })
-	    .attr("y1", function(d) { return d.source.y; })
-	    .attr("x2", function(d) { return d.target.x; })
-	    .attr("y2", function(d) { return d.target.y; });
+	link.attr("x1", function(d) { return d.source.x + offsetx; })
+	    .attr("y1", function(d) { return d.source.y + offsety; })
+	    .attr("x2", function(d) { return d.target.x + offsetx; })
+	    .attr("y2", function(d) { return d.target.y + offsety; });
 
-	node.attr("cx", function(d) { return d.x; })
-	    .attr("cy", function(d) { return d.y; });
+	node.attr("cx", function(d) { return d.x + offsetx; })
+	    .attr("cy", function(d) { return d.y + offsety; });
     });
 }
 
