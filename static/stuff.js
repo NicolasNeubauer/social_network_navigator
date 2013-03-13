@@ -81,6 +81,7 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
     main.height(height);
     var width = $("#main").width();
 
+    log('appending svg');
     svg = d3.select("#main").append("svg")
 	.attr("width", width)
 	.attr("height", height);
@@ -214,5 +215,6 @@ function init(fn) {
 }
 
 $(function() {
+    log('starting');
     init();
 });
