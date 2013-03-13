@@ -73,7 +73,7 @@ def get_token():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    return render_template('index2.html')
 
 @app.route('/channel.html', methods=['GET', 'POST'])
 def get_channel():
