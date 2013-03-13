@@ -125,6 +125,7 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
     });
 
     function neighboring(a, b) {
+	console.log(a, b, a==null || b==null);
 	if (a==null || b==null)
 	    return false;
 	return linkedByIndex[a.index + "," + b.index];
@@ -171,9 +172,11 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	.enter().append("circle")
 	.attr("class", "node")
 	.attr("r", 4)
-	.style("fill", function(d) { if (selected==d)
-	    return color(10);
-
+	.style("fill", function(d) { 
+	    if (selected==d)
+		return color(3);
+	    if (neighboring(d, selected))
+		return color(4);
 	    return color(d.group); })
 	.on("click", function(d,i) { 
 	    window.open('https://facebook.com/' + d['id'], '_blank'); 
