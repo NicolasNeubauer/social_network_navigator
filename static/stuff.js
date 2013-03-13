@@ -177,9 +177,9 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	})
 	.style("opacity", function(d) {
 	    return neighboring(selected, d) ? 1 : opacity;
-	});
-	.on("mouseover", fade(.1))
-	.on("mouseout", fade(1));;
+	})
+	.on("mouseover", function(d, i) { selected = d; })
+	.on("mouseout", function(d, i) {selected = null;})
 	.call(force.drag)
 
     node.append("title")
