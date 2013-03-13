@@ -1,6 +1,6 @@
 function log(s) {
-    if (console)
-	if (console.log)
+    //if (console)
+//	if (console.log)
 	    console.log(s);
 }
 
