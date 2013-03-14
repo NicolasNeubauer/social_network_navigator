@@ -174,7 +174,7 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 		return color(4);
 	    return color(d.group); });
 	link.style("stroke", function(o) {
-	    return o.source === selected || o.target === selected ? "#00AA00" : "#333333";
+	    return o.source === selected || o.target === selected ? "#88FF88" : "#888888";
 	})
 
     }
