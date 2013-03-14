@@ -164,10 +164,20 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	.data(links)
 	.enter().append("line")
 	.attr("class", "link")
-	.style("stroke-width", function(d) { return Math.sqrt(d.value); })
-	.style("color", function(o) {
-	    return o.source === selected || o.target === selected ? 'green' : 'black';
-	});
+	.style("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+    function setfill() {
+	node.style("fill", function(d) { 
+	    if (selected==d)
+		return color(3);
+	    if (neighboring(d, selected))
+		return color(4);
+	    return color(d.group); });
+	link.style("color", function(o) {
+	    return o.source === selected || o.target === selected ? color(6) : color(7);
+	})
+
+    }
 
     var node = svg.selectAll(".node")
 	.data(nodes)
@@ -186,8 +196,8 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 /*	.style("opacity", function(d) {
 	    return neighboring(selected, d) ? 1 : opacity;
 	})*/
-	.on("mouseover", function(d, i) { selected = d; })
-	.on("mouseout", function(d, i) {selected = null;})
+	.on("mouseover", function(d, i) { selected = d; setfill(); })
+	.on("mouseout", function(d, i) {selected = null; setfill(); })
 	.call(force.drag)
 
     node.append("title")
@@ -200,13 +210,7 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	    .attr("y2", function(d) { return d.target.y + offsety; });
 
 	node.attr("cx", function(d) { return d.x + offsetx; })
-	    .attr("cy", function(d) { return d.y + offsety; })
-	.style("fill", function(d) { 
-	    if (selected==d)
-		return color(3);
-	    if (neighboring(d, selected))
-		return color(4);
-	    return color(d.group); })
+	    .attr("cy", function(d) { return d.y + offsety; });
 
     });
 
