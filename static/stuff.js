@@ -73,7 +73,7 @@ var built = false;
 function buildGraphChart(nodes, namelinks, namesToIds, height) {
     if (built)
     {
-	console.log('already built! this shouldn\'t happen.');
+	//console.log('already built! this shouldn\'t happen.');
 	return;
     }
     built = true;
@@ -117,7 +117,6 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
     if (height>width)
 	offsety = (height-width)/2;
 
-    console.log(offsetx, offsety, 'offsets');
 
 
     // http://stackoverflow.com/questions/8739072/highlight-selected-node-its-links-and-its-children-in-a-d3-js-force-directed-g
@@ -132,9 +131,7 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	    return false;
 	var ind = a.index + "," + b.index;
 	var ind2 = b.index + "," + a.index;
-	console.log('neighboring!', ind);
-	console.log(linkedByIndex);
-	return linkedByIndex[ind] || linkedByIndex[ind];
+	return linkedByIndex[ind] || linkedByIndex[ind2];
     }    
 
 
@@ -189,7 +186,7 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 /*	.style("opacity", function(d) {
 	    return neighboring(selected, d) ? 1 : opacity;
 	})*/
-	.on("mouseover", function(d, i) { console.log(d); selected = d; })
+	.on("mouseover", function(d, i) { selected = d; })
 	.on("mouseout", function(d, i) {selected = null;})
 	.call(force.drag)
 
