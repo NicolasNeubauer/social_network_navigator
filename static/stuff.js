@@ -10,7 +10,7 @@ function iterateOverFriends(friends, nodes, namesToIds, i, namelinks, fn) {
 	numFriends = friends.length;
     var friend = friends.pop();
     if (!friend) {
-	$("#loading_text").hide();
+	$("#loading_text").remove();
 	fn();
 	return;
     }
@@ -60,7 +60,7 @@ function iterateOverFriendsParallel(friends, nodes, namesToIds, i, namelinks, fn
 	    waiting -= 1;
 	    $("#loading_text").text('Waiting for ' + (waiting) + '/' + numFriends + ' friends...');
 	    if (waiting==0) {
-		$("#loading_text").hide();
+		$("#loading_text").remove();
 		fn();
 	    }
 
