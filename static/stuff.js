@@ -123,7 +123,7 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
     // http://stackoverflow.com/questions/8739072/highlight-selected-node-its-links-and-its-children-in-a-d3-js-force-directed-g
     var linkedByIndex = {};
     links.forEach(function(d) {
-	linkedByIndex[d.source.index + "," + d.target.index] = 1;
+	linkedByIndex[d.source + "," + d.target] = 1;
     });
 
 
