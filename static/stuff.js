@@ -169,9 +169,9 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
     function setfill() {
 	node.style("fill", function(d) { 
 	    if (selected==d)
-		return color(4);
-	    if (neighboring(d, selected))
 		return color(3);
+	    if (neighboring(d, selected))
+		return color(4);
 	    return color(d.group); });
 	link.style("color", function(o) {
 	    return o.source === selected || o.target === selected ? color(6) : color(7);
@@ -189,7 +189,9 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	})
 	.on("mouseover", function(d, i) { selected = d;    setfill(); })
 	.on("mouseout",  function(d, i) { selected = null; setfill(); })
-	.call(force.drag)
+	.call(force.drag);
+    setfill();
+
 
     node.append("title")
 	.text(function(d) { return d.name; });
