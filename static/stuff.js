@@ -169,9 +169,9 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
     function setfill() {
 	node.style("fill", function(d) { 
 	    if (selected==d)
-		return color(3);
-	    if (neighboring(d, selected))
 		return color(4);
+	    if (neighboring(d, selected))
+		return color(3);
 	    return color(d.group); });
 	link.style("color", function(o) {
 	    return o.source === selected || o.target === selected ? color(6) : color(7);
@@ -184,20 +184,11 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	.enter().append("circle")
 	.attr("class", "node")
 	.attr("r", 4)
-	.style("fill", function(d) { 
-	    if (selected==d)
-		return color(4);
-	    if (neighboring(d, selected))
-		return color(5);
-	    return color(d.group); })
 	.on("click", function(d,i) { 
 	    window.open('https://facebook.com/' + d['id'], '_blank'); 
 	})
-/*	.style("opacity", function(d) {
-	    return neighboring(selected, d) ? 1 : opacity;
-	})*/
-	.on("mouseover", function(d, i) { selected = d; setfill(); })
-	.on("mouseout", function(d, i) {selected = null; setfill(); })
+	.on("mouseover", function(d, i) { selected = d;    setfill(); })
+	.on("mouseout",  function(d, i) { selected = null; setfill(); })
 	.call(force.drag)
 
     node.append("title")
