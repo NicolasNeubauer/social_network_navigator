@@ -17,6 +17,7 @@ function iterateOverFriends(friends, nodes, namesToIds, i, namelinks, fn) {
 
     nodes.push({'name': friend['name'],
 		'id': friend['id'],
+		'index': i,
 		'group': 1});
     namesToIds[friend['name']] = i;
     FB.api('/' + friend['id'] + '/mutualfriends', function(response) {
@@ -45,6 +46,7 @@ function iterateOverFriendsParallel(friends, nodes, namesToIds, i, namelinks, fn
     $.each(friends, function(index, friend) {
 	nodes.push({'name': friend['name'],
 		    'id': friend['id'],
+		    'index': index,
 		    'group': 1});
 	namesToIds[friend['name']] = index;	
 	$("#loading_text").text('Friend ' + (i+1) + '/' + numFriends + ' loading...');
@@ -143,9 +145,8 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	.theta(0.1);
 
     var selected = null;
-    var opacity = 0.5;
 
-    function fade(opacity) {
+/*    function fade(opacity) {
         return function(d, i) {
             //fade all elements
             svg.selectAll("circle, line").style("opacity", opacity);
@@ -160,7 +161,7 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
                 d3.select(dLink.target).style("opacity", 1);
             });
         };
-    }
+    }*/
 
     var link = svg.selectAll(".link")
 	.data(links)
@@ -185,9 +186,9 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	.on("click", function(d,i) { 
 	    window.open('https://facebook.com/' + d['id'], '_blank'); 
 	})
-	.style("opacity", function(d) {
+/*	.style("opacity", function(d) {
 	    return neighboring(selected, d) ? 1 : opacity;
-	})
+	})*/
 	.on("mouseover", function(d, i) { console.log(d); selected = d; })
 	.on("mouseout", function(d, i) {selected = null;})
 	.call(force.drag)
