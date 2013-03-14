@@ -201,13 +201,12 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 
 	node.attr("cx", function(d) { return d.x + offsetx; })
 	    .attr("cy", function(d) { return d.y + offsety; });
-	/*
 	.style("fill", function(d) { 
 	    if (selected==d)
 		return color(3);
 	    if (neighboring(d, selected))
 		return color(4);
-	    return color(d.group); })*/
+	    return color(d.group); })
 
     });
 
