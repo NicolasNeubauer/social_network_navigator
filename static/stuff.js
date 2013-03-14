@@ -173,10 +173,16 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	    if (neighboring(d, selected))
 		return "#FF7F0E";
 	    return color(d.group); });
+	/*
 	link.style("stroke", function(o) {
 	    return o.source === selected || o.target === selected ? "#33CC33" : "#888888";
-	})
+	});
+	*/
 
+	link.style("stroke", "#000000");
+	link.style("opacity", function(o) {
+	    return o.source === selected || o.target === selected ? 1.0 : 0.3;
+	});
     }
 
     var node = svg.selectAll(".node")
