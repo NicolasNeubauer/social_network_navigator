@@ -173,8 +173,8 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	    if (neighboring(d, selected))
 		return color(4);
 	    return color(d.group); });
-	link.style("color", function(o) {
-	    return o.source === selected || o.target === selected ? color(6) : color(7);
+	link.style("stroke", function(o) {
+	    return o.source === selected || o.target === selected ? "#00AA00" : "#333333";
 	})
 
     }
