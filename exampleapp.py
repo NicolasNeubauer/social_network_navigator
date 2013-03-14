@@ -79,6 +79,10 @@ def index():
 def get_channel():
     return render_template('channel.html')
 
+@app.route('/about.html', methods=['GET', 'POST'])
+def get_channel():
+    return render_template('about.html')
+
 
 @app.route('/close/', methods=['GET', 'POST'])
 def close():
