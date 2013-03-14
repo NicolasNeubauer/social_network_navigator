@@ -169,12 +169,12 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
     function setfill() {
 	node.style("fill", function(d) { 
 	    if (selected==d)
-		return color(3);
+		return "#AEC7E8";
 	    if (neighboring(d, selected))
-		return color(4);
+		return "#FF7F0E";
 	    return color(d.group); });
 	link.style("stroke", function(o) {
-	    return o.source === selected || o.target === selected ? "#88FF88" : "#888888";
+	    return o.source === selected || o.target === selected ? "#33CC33" : "#888888";
 	})
 
     }
