@@ -238,7 +238,7 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
     //logResponse(x);
     img.src = "data:image/svg+xml;base64,"+utf8_to_b64(svg_xml);
     logResponse('4');
-    logResponse(ctx.toDataURL());
+    logResponse(myCanvas.toDataURL());
 }
 
 
