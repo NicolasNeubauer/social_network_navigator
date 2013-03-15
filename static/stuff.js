@@ -219,15 +219,16 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 }
 
 
-function doit(height) {
+function doit(height, attempt) {
     
 
     FB.api('/me/friends', function(response) {
 
 	if (!response['data']) {
-	    alert('Attempt to load friends failed. This sometimes happens, we\'re still trying to figure out why. We\'ll retry if you press OK.\n\nError message: ' + response['data']);
-	    logResponse(response);
-	    doit(height);
+	    logResponse(attempt, response);
+	    if (attempt>10)
+		alert('Attempt to load friends failed. This sometimes happens, we\'re still trying to figure out why. We\'ll retry if you press OK.\n\nError message: ' + response);
+	    doit(height, attempt+1);
 	    return;
 	}
 
@@ -266,7 +267,7 @@ function init(fn) {
 	// Additional initialization code such as adding Event Listeners goes here
 	FB.Canvas.getPageInfo(
 	    function(info) {
-		doit(info.clientHeight * 0.9);
+		doit(info.clientHeight * 0.9, 1);
 	    });
     };
 
