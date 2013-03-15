@@ -220,9 +220,13 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
     var svg_xml = (new XMLSerializer).serializeToString(svg);
     logResponse(svg_xml);
     var ctx = myCanvas.getContext('2d');
+    logResponse('1');
     var img = new Image;
+    logResponse('2');
     img.onload = function(){ ctx.drawImage(img,0,0); };
+    logResponse('3';)
     img.src = "data:image/svg+xml;base64,"+btoa(svg_xml);
+    logResponse('4';)
 }
 
 
