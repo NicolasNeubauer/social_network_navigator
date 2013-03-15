@@ -224,8 +224,8 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	    .attr("cy", function(d) { return d.y + offsety; });
 
 	count += 1;
-	if (count == 20)
-	    dumpImage();
+	/*if (count == 20)
+	    dumpImage();*/
 
     });
 
