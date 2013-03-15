@@ -236,7 +236,6 @@ function dumpImage() {
     var myCanvas = document.getElementById("myCanvas");
     var svg = document.getElementById("svg");
     var svg_xml = (new XMLSerializer).serializeToString(svg);
-    logResponse(svg_xml);
     var ctx = myCanvas.getContext('2d');
     logResponse('1');
     var img = new Image;
@@ -252,6 +251,8 @@ function dumpImage() {
     svg_xml = [svg_xml.slice(0, i), 
 	       ' xmlns="http://www.w3.org/2000/svg"', 
 	       svg_xml.slice(i)].join('')
+    logResponse(svg_xml);
+
 
     img.src = "data:image/svg+xml;charset=utf-8,"+svg_xml;
     /* http://www.nihilogic.dk/labs/canvas2image/ */
