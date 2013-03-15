@@ -198,8 +198,10 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
     var node = svg.selectAll(".node")
 	.data(nodes)
 	.enter().append("circle")
-	.attr("class", "node")
 	.attr("r", 4)
+	.attr("class", "node")
+        .style("stroke", "#fff")
+        .style("stroke-width", "1.5px")
 	.on("click", function(d,i) { 
 	    window.open('https://facebook.com/' + d['id'], '_blank'); 
 	})
@@ -250,7 +252,7 @@ function dumpImage() {
     var i = svg_xml.indexOf('>');
     svg_xml = [svg_xml.slice(0, i), 
 	       ' xmlns="http://www.w3.org/2000/svg"', 
-	       svg_xml.slice(i)].join('')
+	       svg_xml.slice(i)].join('').replace('\n', '');
     logResponse(svg_xml);
 
 
