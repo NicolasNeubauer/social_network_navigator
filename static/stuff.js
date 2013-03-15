@@ -246,7 +246,8 @@ function dumpImage() {
     var x = utf8_to_b64(svg_xml);
     logResponse('4');
     //logResponse(x);
-    img.src = "data:image/svg+xml;base64,"+utf8_to_b64(svg_xml);
+    img.src = "data:image/svg+xml;base64,"+x;
+    img.src = "data:image/svg+xml;charset=utf-8,"+svg_xml;
     /* http://www.nihilogic.dk/labs/canvas2image/ */
     Canvas2Image.saveAsPNG(myCanvas); 
     //logResponse('4');
