@@ -70,6 +70,14 @@ function iterateOverFriendsParallel(friends, nodes, namesToIds, i, namelinks, fn
     });
 }
 
+//https://developer.mozilla.org/de/docs/DOM/window.btoa
+function utf8_to_b64( str ) {
+    return window.btoa(unescape(encodeURIComponent( str )));
+}
+ 
+function b64_to_utf8( str ) {
+    return decodeURIComponent(escape(window.atob( str )));
+}
 
 var built = false;
 function buildGraphChart(nodes, namelinks, namesToIds, height) {
@@ -225,7 +233,8 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
     logResponse('2');
     img.onload = function(){ ctx.drawImage(img,0,0); };
     logResponse('3');
-    img.src = "data:image/svg+xml;base64,"+btoa(svg_xml);
+    logResponse(utf8_to_b64(svg_xml));
+    img.src = "data:image/svg+xml;base64,"+utf8_to_b64(svg_xml);
     logResponse('4');
 }
 
