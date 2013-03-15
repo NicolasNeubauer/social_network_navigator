@@ -224,9 +224,9 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
     var img = new Image;
     logResponse('2');
     img.onload = function(){ ctx.drawImage(img,0,0); };
-    logResponse('3';)
+    logResponse('3');
     img.src = "data:image/svg+xml;base64,"+btoa(svg_xml);
-    logResponse('4';)
+    logResponse('4');
 }
 
 
