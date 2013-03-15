@@ -233,7 +233,9 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
     logResponse('2');
     img.onload = function(){ ctx.drawImage(img,0,0); };
     logResponse('3');
-    logResponse(utf8_to_b64(svg_xml));
+    var x = utf8_to_b64(svg_xml);
+    logResponse('4');
+    //logResponse(x);
     img.src = "data:image/svg+xml;base64,"+utf8_to_b64(svg_xml);
     logResponse('4');
 }
