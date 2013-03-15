@@ -224,8 +224,8 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	    .attr("cy", function(d) { return d.y + offsety; });
 
 	count += 1;
-	/*if (count == 20)
-	    dumpImage();*/
+	if (count == 20)
+	    dumpImage();
 
     });
 
@@ -250,7 +250,7 @@ function dumpImage() {
     /* http://www.nihilogic.dk/labs/canvas2image/ */
     Canvas2Image.saveAsPNG(myCanvas); 
     //logResponse('4');
-    //logResponse(myCanvas.toDataURL())
+    logResponse(myCanvas.toDataURL())
 
 }
 
