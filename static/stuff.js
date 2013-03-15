@@ -247,6 +247,12 @@ function dumpImage() {
     logResponse('4');
     //logResponse(x);
     img.src = "data:image/svg+xml;base64,"+x;
+
+    var i = svg_xml.indexOf('>');
+    svg_xml = [svg_xml.slice(0, i), 
+	       ' xmlns="http://www.w3.org/2000/svg"', 
+	       svg_xml.slice(i)].join('')
+
     img.src = "data:image/svg+xml;charset=utf-8,"+svg_xml;
     /* http://www.nihilogic.dk/labs/canvas2image/ */
     Canvas2Image.saveAsPNG(myCanvas); 
