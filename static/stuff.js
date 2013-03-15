@@ -85,7 +85,7 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
     main.height(height);
     var width = $("#main").width();
 
-    svg = d3.select("#main").append("svg")
+    svg = d3.select("#svg")
 	.attr("width", width)
 	.attr("height", height);
 
@@ -215,7 +215,7 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 
     });
 
-
+    logResponse(document.getElementById("svg").toDataURL());
 }
 
 
@@ -259,7 +259,7 @@ function init(fn) {
 	// init the FB JS SDK
 	FB.init({
 	    appId      : '515437155174833', // App ID from the App Dashboard
-	    channelUrl : '//nicolasneubauer.net/channel.html', // Channel File for x-domain communication
+	    channelUrl : '//floating-ridge-2242.herokuapp.com/channel.html', // Channel File for x-domain communication
 	    status     : true, // check the login status upon init?
 	    cookie     : true, // set sessions cookies to allow your server to access the session?
 	    xfbml      : true  // parse XFBML tags on this page?
