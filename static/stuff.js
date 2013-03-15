@@ -212,6 +212,8 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
     node.append("title")
 	.text(function(d) { return d.name; });
 
+    var count = 0;
+
     force.on("tick", function() {
 	link.attr("x1", function(d) { return d.source.x + offsetx; })
 	    .attr("y1", function(d) { return d.source.y + offsety; })
@@ -221,7 +223,15 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	node.attr("cx", function(d) { return d.x + offsetx; })
 	    .attr("cy", function(d) { return d.y + offsety; });
 
+	count += 1;
+	if (count == 20)
+	    dumpImage();
+
     });
+
+}
+
+function dumpImage() {
 
     var myCanvas = document.getElementById("myCanvas");
     var svg = document.getElementById("svg");
@@ -237,9 +247,13 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
     logResponse('4');
     //logResponse(x);
     img.src = "data:image/svg+xml;base64,"+utf8_to_b64(svg_xml);
-    logResponse('4');
-    logResponse(myCanvas.toDataURL());
+    /* http://www.nihilogic.dk/labs/canvas2image/ */
+    Canvas2Image.saveAsPNG(myCanvas); 
+    //logResponse('4');
+    //logResponse(myCanvas.toDataURL())
+
 }
+
 
 
 function doit(height, attempt) {
