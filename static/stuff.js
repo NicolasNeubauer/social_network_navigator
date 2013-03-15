@@ -1,9 +1,11 @@
-function log(s) {
-    //if (console)
-//	if (console.log)
-	    console.log(s);
+function logResponse(response) {
+    if (console && console.log) {
+        console.log('The response was', response);
+    }
 }
 
+
+/*
 var numFriends = 0;
 function iterateOverFriends(friends, nodes, namesToIds, i, namelinks, fn) {
     if (i==0)
@@ -31,7 +33,7 @@ function iterateOverFriends(friends, nodes, namesToIds, i, namelinks, fn) {
 	iterateOverFriends(friends, nodes, namesToIds, i+1, namelinks, fn);
     });
 }
-
+*/
 
 function iterateOverFriendsParallel(friends, nodes, namesToIds, i, namelinks, fn) {
     var waiting = 0;
@@ -221,6 +223,13 @@ function doit(height) {
     
 
     FB.api('/me/friends', function(response) {
+
+	if (!response['data']) {
+	    alert('Attempt to load friends failed. This sometimes happens, we\'re still trying to figure out why. We\'ll retry if you press OK.\n\nError message: ' + response['data']);
+	    logResponse(response);
+	    doit(height);
+	    return;
+	}
 
 	var nodes = [],
 	namelinks = [],
