@@ -215,7 +215,14 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 
     });
 
-    logResponse(document.getElementById("svg").toDataURL());
+    var myCanvas = document.getElementById("myCanvas");
+    var svg = document.getElementById("svg");
+    var svg_xml = (new XMLSerializer).serializeToString(svg);
+    logResponse(svg_xml);
+    var ctx = myCanvas.getContext('2d');
+    var img = new Image;
+    img.onload = function(){ ctx.drawImage(img,0,0); };
+    img.src = "data:image/svg+xml;base64,"+btoa(svg_xml);
 }
 
 
