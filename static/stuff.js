@@ -1,6 +1,6 @@
 function logResponse(response) {
     if (console && console.log) {
-        console.log('The response was', response);
+        console.log(response);
     }
 }
 
@@ -225,7 +225,8 @@ function doit(height, attempt) {
     FB.api('/me/friends', function(response) {
 
 	if (!response['data']) {
-	    logResponse(attempt, response);
+	    logResponse(attempt);
+	    logResponse(response);
 	    if (attempt>10)
 		alert('Attempt to load friends failed. This sometimes happens, we\'re still trying to figure out why. We\'ll retry if you press OK.\n\nError message: ' + response);
 	    doit(height, attempt+1);
