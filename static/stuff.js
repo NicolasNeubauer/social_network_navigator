@@ -383,12 +383,25 @@ function init(fn) {
 	    xfbml      : true  // parse XFBML tags on this page?
 	});
 
-	// Additional initialization code such as adding Event Listeners goes here
-	FB.Canvas.getPageInfo(
-	    function(info) {
-		logResponse('auth item: ', FB.getAuthResponse()['accessToken']);
-		doit(info.clientHeight * 0.9, 1);
-	    });
+	FB.login(function(response) {
+	    if (response.authResponse) {
+		var access_token =   FB.getAuthResponse()['accessToken'];
+		logResponse('Access Token = '+ access_token);
+		FB.api('/me', function(response) {
+		    logResponse('Good to see you, ' + response.name + '.');
+		});
+
+		FB.Canvas.getPageInfo(
+		    function(info) {
+			logResponse('auth item: ', FB.getAuthResponse()['accessToken']);
+			doit(info.clientHeight * 0.9, 1);
+		    });
+
+	    } else {
+		alert('User cancelled login or did not fully authorize.');
+	    }
+	}, {scope: ''});
+
     };
 
     // Load the SDK's source Asynchronously
