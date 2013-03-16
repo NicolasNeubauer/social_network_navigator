@@ -228,10 +228,6 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 	node.attr("cx", function(d) { return d.x + offsetx; })
 	    .attr("cy", function(d) { return d.y + offsety; });
 
-	count += 1;
-	if (count == 20)
-	    dumpImage();
-
     });
 
 }
@@ -246,7 +242,7 @@ function dumpImage() {
 
     var canvas = document.getElementById("myCanvas");
     canvg(canvas, svgfix(html));
-    var dataURL = svgCanvgCanvas.toDataURL();//.replace("image/png", "image/octet-stream");
+    var dataURL = canvas.toDataURL();//.replace("image/png", "image/octet-stream");
     document.location.href=dataURL;
 }
 
