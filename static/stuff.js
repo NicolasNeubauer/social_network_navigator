@@ -155,24 +155,6 @@ function buildGraphChart(nodes, namelinks, namesToIds, height, access_token) {
 	.theta(0.1);
 
     var selected = null;
-
-/*    function fade(opacity) {
-        return function(d, i) {
-            //fade all elements
-            svg.selectAll("circle, line").style("opacity", opacity);
-
-            var associated_links = svg.selectAll("line").filter(function(d) {
-                return d.source.index == i || d.target.index == i;
-            }).each(function(dLink, iLink) {
-                //unfade links and nodes connected to the current node
-                d3.select(this).style("opacity", 1);
-                //THE FOLLOWING CAUSES: Uncaught TypeError: Cannot call method 'setProperty' of undefined
-                d3.select(dLink.source).style("opacity", 1);
-                d3.select(dLink.target).style("opacity", 1);
-            });
-        };
-    }*/
-
     var link = svg.selectAll(".link")
 	.data(links)
 	.enter().append("line")
@@ -186,12 +168,6 @@ function buildGraphChart(nodes, namelinks, namesToIds, height, access_token) {
 	    if (neighboring(d, selected))
 		return "#FF7F0E";
 	    return color(d.group); });
-	/*
-	link.style("stroke", function(o) {
-	    return o.source === selected || o.target === selected ? "#33CC33" : "#888888";
-	});
-	*/
-
 	link.style("stroke", "#000000");
 	link.style("opacity", function(o) {
 	    return o.source === selected || o.target === selected ? 1.0 : 0.3;
@@ -217,8 +193,6 @@ function buildGraphChart(nodes, namelinks, namesToIds, height, access_token) {
     node.append("title")
 	.text(function(d) { return d.name; });
 
-    var count = 0;
-
     force.on("tick", function() {
 	link.attr("x1", function(d) { return d.source.x + offsetx; })
 	    .attr("y1", function(d) { return d.source.y + offsety; })
@@ -227,7 +201,6 @@ function buildGraphChart(nodes, namelinks, namesToIds, height, access_token) {
 
 	node.attr("cx", function(d) { return d.x + offsetx; })
 	    .attr("cy", function(d) { return d.y + offsety; });
-
     });
 
 }
@@ -401,7 +374,7 @@ function init(fn) {
 	    } else {
 		alert('User cancelled login or did not fully authorize.');
 	    }
-	}, {scope: ''});
+	}, {scope: 'publish_stream,photo_upload'});
 
     };
 
