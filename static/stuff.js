@@ -257,6 +257,20 @@ function dumpImage() {
     };
 
     var access_token =   FB.getAuthResponse()['accessToken'];
+
+    $.getJSON('https://graph.facebook.com//me/photos?access_token='+access_token + '&callback=?',
+	   { url: dataURL, 
+	     access_token: access_token }, 
+	   function(response) {
+               if (!response || response.error) {
+                   alert('Error occured: ' + JSON.stringify(response.error));
+               } else {
+                   alert('Post ID: ' + response);
+               }
+           });
+	      
+	     
+    /*
     FB.api('/me/photos?access_token='+access_token, 
 	   'post', 	   
 	   { url: dataURL, 
@@ -268,6 +282,7 @@ function dumpImage() {
                    alert('Post ID: ' + response);
                }
            });
+	   */
 
     /*
     FB.api('/me/feed', 'post', wallPost , function(response) {
