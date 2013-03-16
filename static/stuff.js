@@ -264,7 +264,7 @@ FB.ui(
       method: 'feed',
       name: 'Share network',
       link: 'https://www.facebook.com/appcenter/networkfriends',
-      picture: dataURL,
+      //picture: dataURL,
       caption: 'My Social Network',
       description: 'I am browsing my friendsocial network using the Social Network Navigator!'
   },
