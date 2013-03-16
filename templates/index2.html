@@ -4,9 +4,10 @@
   <head>
     <script src="static/d3.v3.min.js"></script>
     <script src="static/jquery-1.7.1.min.js" ></script>
+    <script src="static/svgfix-0.2.js"></script>
+    <script src="static/canvg.js"></script>
     <script src="static/stuff.js" ></script>
-    <script src="static/base64.js"></script>
-    <script src="static/canvas2image.js"></script>
+
     <style type="text/css">
       body {
       font-family: Verdana, Arial, sans-serif;
@@ -30,9 +31,16 @@
 	  <span id="loading_text"/>
 	</center>
       </div>
-      <svg id="svg">
-      </svg>
-      <canvas id="myCanvas" width="800px" height="800px">
+      <div style="position:absolute">
+	<svg id="svg">
+	</svg>
+      </div>
+      <div id="download" style="width:100%; position:absolute">
+	<center>
+	  <a href="javascript:dumpImage();">download</a>
+	</center>
+      </div>
+      <canvas id="myCanvas">
       </canvas>
     </div>
   </body>

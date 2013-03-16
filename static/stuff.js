@@ -60,7 +60,7 @@ function iterateOverFriendsParallel(friends, nodes, namesToIds, i, namelinks, fn
 				'target': otherfriend['name']});
 	    });
 	    waiting -= 1;
-	    $("#loading_text").text('Waiting for ' + (waiting) + '/' + numFriends + ' friends...');
+	    $("#loading_text").text('Loaded ' + (numFriends-waiting) + '/' + numFriends + ' friends');
 	    if (waiting==0) {
 		$("#loading_text").remove();
 		fn();
@@ -95,7 +95,10 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 
     svg = d3.select("#svg")
 	.attr("width", width)
-	.attr("height", height);
+	.attr("height", height)
+	.attr("title", "Network")
+        .attr("version", 1.1)
+        .attr("xmlns", "http://www.w3.org/2000/svg");
 
 
     //glob['namelinks'] = namelinks;
@@ -234,36 +237,44 @@ function buildGraphChart(nodes, namelinks, namesToIds, height) {
 }
 
 function dumpImage() {
+    var html = d3.select("svg")
+	.attr("title", "test2")
+	.attr("version", 1.1)
+	.attr("xmlns", "http://www.w3.org/2000/svg")
+	.style("background-color", "#FFF")
+	.node().parentNode.innerHTML;
+
+    var canvas = document.getElementById("myCanvas");
+    canvg(canvas, svgfix(html));
+    var dataURL = svgCanvgCanvas.toDataURL();//.replace("image/png", "image/octet-stream");
+    document.location.href=dataURL;
+}
+
+
+/*
+function dumpImage() {
 
     var myCanvas = document.getElementById("myCanvas");
     var svg = document.getElementById("svg");
-    var svg_xml = (new XMLSerializer).serializeToString(svg);
+    var svg_xml = svg.node().parentNode.innerHTML; //(new XMLSerializer).serializeToString(svg);
     var ctx = myCanvas.getContext('2d');
-    logResponse('1');
     var img = new Image;
-    logResponse('2');
     img.onload = function(){ ctx.drawImage(img,0,0); };
-    logResponse('3');
-    var x = utf8_to_b64(svg_xml);
-    logResponse('4');
-    //logResponse(x);
-    img.src = "data:image/svg+xml;base64,"+x;
+    
+    //var x = utf8_to_b64(svg_xml);
+    //img.src = "data:image/svg+xml;base64,"+x;
 
-    var i = svg_xml.indexOf('>');
-    svg_xml = [svg_xml.slice(0, i), 
-	       ' xmlns="http://www.w3.org/2000/svg"', 
-	       svg_xml.slice(i)].join('').replace('\n', '');
     logResponse(svg_xml);
 
-
-    img.src = "data:image/svg+xml;charset=utf-8,"+svg_xml;
-    /* http://www.nihilogic.dk/labs/canvas2image/ */
-    Canvas2Image.saveAsPNG(myCanvas); 
+    //img.src = "data:image/svg+xml;charset=utf-8,"+svg_xml;
+    img.src = "data:image/svg+xml;base64,"+btoa(svg_xml);
+    // http://www.nihilogic.dk/labs/canvas2image/ 
+    Canvas2Image.saveAsPNG(myCanvas, 'network.png'); 
     //logResponse('4');
     logResponse(myCanvas.toDataURL())
 
 }
-
+*/
 
 
 function doit(height, attempt) {
