@@ -269,6 +269,7 @@ FB.ui(
       description: 'I am browsing my friendsocial network using the Social Network Navigator!'
   },
   function(response) {
+      logResponse(response);
     if (response && response.post_id) {
       alert('Post was published.');
     } else {
