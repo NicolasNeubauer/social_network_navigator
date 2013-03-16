@@ -244,17 +244,18 @@ function dumpImage() {
     canvg(canvas, svgfix(html));
     var dataURL = canvas.toDataURL();//.replace("image/png", "image/octet-stream");
 
-var wallPost = {
-    message : "testing...",
-    picture: dataURL
-};
-FB.api('/me/feed', 'post', wallPost , function(response) {
-  if (!response || response.error) {
-    alert('Error occured');
-  } else {
-    alert('Post ID: ' + response);
-  }
-});
+    var wallPost = {
+	message : "testing...",
+	picture: dataURL
+    };
+    FB.api('/me/feed', 'post', wallPost , function(response) {
+	if (!response || response.error) {
+	    alert('Error occured');
+	    logResponse(response);
+	} else {
+	    alert('Post ID: ' + response);
+	}
+    });
 
     //document.location.href=dataURL;
 }
