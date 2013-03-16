@@ -80,7 +80,7 @@ function b64_to_utf8( str ) {
 }
 
 var built = false;
-function buildGraphChart(nodes, namelinks, namesToIds, height) {
+function buildGraphChart(nodes, namelinks, namesToIds, height, access_token) {
     if (built)
     {
 	//console.log('already built! this shouldn\'t happen.');
@@ -284,7 +284,7 @@ function dumpImage() {
     };
 
     var access_token =   FB.getAuthResponse()['accessToken'];
-    FB.api('/me/photos', // ?access_token='+access_token, 
+    FB.api('/me/photos/access_token='+access_token, 
 	   'post', 	   
 	   { url: dataURL, 
 	     access_token: access_token }, 
@@ -337,7 +337,7 @@ function dumpImage() {
 */
 
 
-function doit(height, attempt) {
+function doit(height, attempt, access_token) {
     
 
     FB.api('/me/friends', function(response) {
@@ -366,7 +366,8 @@ function doit(height, attempt) {
 		    nodes, 
 		    namelinks, 
 		    namesToIds, 
-		    height)});
+		    height,
+		    access_token)});
     });
 
 }
@@ -385,17 +386,16 @@ function init(fn) {
 
 	FB.login(function(response) {
 	    if (response.authResponse) {
-		logResponse(FB.getAuthResponse());
+		//logResponse(FB.getAuthResponse());
 		var access_token =   FB.getAuthResponse()['accessToken'];
-		logResponse('Access Token = '+ access_token);
+		//logResponse('Access Token = '+ access_token);
 		FB.api('/me', function(response) {
 		    logResponse('Good to see you, ' + response.name + '.');
 		});
 
 		FB.Canvas.getPageInfo(
 		    function(info) {
-			logResponse('auth item: ', FB.getAuthResponse()['accessToken']);
-			doit(info.clientHeight * 0.9, 1);
+			doit(info.clientHeight * 0.9, 1, access_token);
 		    });
 
 	    } else {
@@ -421,3 +421,6 @@ function init(fn) {
 $(function() {
     init();
 });
+/*
+  
+*/
