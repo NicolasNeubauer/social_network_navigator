@@ -385,6 +385,7 @@ function init(fn) {
 
 	FB.login(function(response) {
 	    if (response.authResponse) {
+		logResponse(FB.getAuthResponse());
 		var access_token =   FB.getAuthResponse()['accessToken'];
 		logResponse('Access Token = '+ access_token);
 		FB.api('/me', function(response) {
