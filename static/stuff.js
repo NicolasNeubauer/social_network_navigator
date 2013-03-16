@@ -257,7 +257,7 @@ function dumpImage() {
     };
 
     var access_token =   FB.getAuthResponse()['accessToken'];
-    FB.api('/me/photos/access_token='+access_token, 
+    FB.api('/me/photos?access_token='+access_token, 
 	   'post', 	   
 	   { url: dataURL, 
 	     access_token: access_token }, 
@@ -362,9 +362,11 @@ function init(fn) {
 		//logResponse(FB.getAuthResponse());
 		var access_token =   FB.getAuthResponse()['accessToken'];
 		//logResponse('Access Token = '+ access_token);
+		/*
 		FB.api('/me', function(response) {
 		    logResponse('Good to see you, ' + response.name + '.');
 		});
+		*/
 
 		FB.Canvas.getPageInfo(
 		    function(info) {
