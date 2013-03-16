@@ -258,6 +258,27 @@ function dumpImage() {
 
     var access_token =   FB.getAuthResponse()['accessToken'];
 
+
+FB.ui(
+  {
+      method: 'feed',
+      name: 'Share network',
+      link: 'https://www.facebook.com/appcenter/networkfriends',
+      picture: dataURL,
+      caption: 'My Social Network',
+      description: 'I am browsing my friendsocial network using the Social Network Navigator!'
+  },
+  function(response) {
+    if (response && response.post_id) {
+      alert('Post was published.');
+    } else {
+      alert('Post was not published.');
+    }
+  }
+);
+
+/*
+
     $.getJSON('https://graph.facebook.com//me/photos?access_token='+access_token + '&callback=?',
 	   { url: dataURL, 
 	     access_token: access_token }, 
@@ -267,7 +288,7 @@ function dumpImage() {
                } else {
                    alert('Post ID: ' + response);
                }
-           });
+           });*/
 	      
 	     
     /*
