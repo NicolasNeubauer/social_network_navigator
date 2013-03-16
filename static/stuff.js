@@ -248,6 +248,23 @@ function dumpImage() {
 	message : "testing...",
 	picture: dataURL
     };
+
+    FB.login(function(response) {
+        if (response.authResponse) {
+            var access_token =   FB.getAuthResponse()['accessToken'];
+            FB.api('/me/photos?access_token='+access_token, 'post', { url: dataURL, access_token: access_token }, function(response) {
+                if (!response || response.error) {
+                    alert('Error occured: ' + JSON.stringify(response.error));
+                } else {
+                    alert('Post ID: ' + response);
+                }
+            });
+        } else {
+            logResponse('User cancelled login or did not fully authorize.');
+        }
+    }, {scope: ''});
+
+    /*
     FB.api('/me/feed', 'post', wallPost , function(response) {
 	if (!response || response.error) {
 	    alert('Error occured');
@@ -256,6 +273,7 @@ function dumpImage() {
 	    alert('Post ID: ' + response);
 	}
     });
+    */
 
     //document.location.href=dataURL;
 }
