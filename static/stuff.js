@@ -243,7 +243,20 @@ function dumpImage() {
     var canvas = document.getElementById("myCanvas");
     canvg(canvas, svgfix(html));
     var dataURL = canvas.toDataURL();//.replace("image/png", "image/octet-stream");
-    document.location.href=dataURL;
+
+var wallPost = {
+    message : "testing...",
+    picture: dataURL
+};
+FB.api('/me/feed', 'post', wallPost , function(response) {
+  if (!response || response.error) {
+    alert('Error occured');
+  } else {
+    alert('Post ID: ' + response);
+  }
+});
+
+    //document.location.href=dataURL;
 }
 
 
