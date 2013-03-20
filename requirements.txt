@@ -4,4 +4,4 @@ Werkzeug==0.7.1
 simplejson==2.2.1
 wsgiref==0.1.2
 requests==0.10.4
-Flask-Bootstrap==2.3.1-2dev
+Flask-Bootstrap==2.3.1
