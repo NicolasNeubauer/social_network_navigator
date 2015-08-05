@@ -1,0 +1,21 @@
+body {
+    font-family: Verdana, Arial, sans-serif;
+}
+
+.node {
+    stroke: #fff;
+    stroke-width: 1.5px;
+}
+.link {
+    stroke: #999;
+    stroke-opacity: .6;
+}
+
+#svgcontainer {
+    position:absolute;
+}
+
+#download {
+    width:100%;
+    position:absolute;
+}

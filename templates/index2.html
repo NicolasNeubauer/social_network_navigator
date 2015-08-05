@@ -1,48 +1,38 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <html>
-  <head>
+<head>
+    <link href="styles.css" rel="stylesheet">
     <script src="static/d3.v3.min.js"></script>
     <script src="static/jquery-1.7.1.min.js" ></script>
     <script src="static/svgfix-0.2.js"></script>
     <script src="static/canvg.js"></script>
     <script src="static/stuff.js" ></script>
+</head>
+<body>
 
-    <style type="text/css">
-      body {
-      font-family: Verdana, Arial, sans-serif;
-      }
+    <div id="fb-root">
 
-      .node {
-      stroke: #fff;
-      stroke-width: 1.5px;
-      }
-      .link {
-      stroke: #999;
-      stroke-opacity: .6;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="fb-root"></div>
-    <div id="main">
-      <div id="loading" style="width:100%">
-	<center>
-	  <span id="loading_text"/>
-	</center>
-      </div>
-      <div style="position:absolute">
-	<svg id="svg">
-	</svg>
-      </div>
-    <div id="download" style="width:100%; position:absolute">
-	<center>
-	  <a href="javascript:dumpImage();">Post to Wall (testing)</a>
-	</center>
-      </div>
-
-      <canvas id="myCanvas">
-      </canvas>
     </div>
-  </body>
+
+    <div id="main">
+        <div id="loading" style="width:100%">
+            <center>
+                <span id="loading_text"></span>
+            </center>
+        </div>
+
+        <div id="svgcontainer">
+            <svg id="svg">
+            </svg>
+        </div>
+
+        <div id="download">
+        </div>
+
+        <canvas id="myCanvas">
+        </canvas>
+
+    </div>
+</body>
 </html>
