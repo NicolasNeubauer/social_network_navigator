@@ -244,7 +244,7 @@ function init(fn) {
             } else {
                 alert('User cancelled login or did not fully authorize.');
             }
-        });
+        }, {scope: 'user_friends'});
     };
 
     (function(d, debug){
