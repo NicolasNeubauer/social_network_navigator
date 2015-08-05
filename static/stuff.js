@@ -33,6 +33,8 @@ function iterateOverFriendsParallel(friends, nodes, namesToIds, i, namelinks, fn
         loading_text.text('Friend ' + (i+1) + '/' + numFriends + ' loading...');
 
         FB.api('/' + friend['id'] + '/mutualfriends', function(response) {
+            console.log('mutual friends of ', friend['id']);
+            console.log(response);
             $.each(response['data'], function(index, otherfriend) {
                 if (friend['id'] < otherfriend['id'])
                     return;
