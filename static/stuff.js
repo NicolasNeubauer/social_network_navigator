@@ -13,6 +13,8 @@ function iterateOverFriendsParallel(friends, nodes, namesToIds, i, namelinks, fn
         return;
     }
 
+    console.log('friends: ', friends);
+
     var
         numFriends = friends.length,
         waiting = numFriends,
