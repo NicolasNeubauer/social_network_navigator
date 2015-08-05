@@ -187,6 +187,9 @@ function doit(height, attempt, access_token) {
 
     FB.api('/me/friends', function(response) {
 
+        console.log('/me/friends');
+        console.log(response);
+
         if (!response['data']) {
             logResponse(attempt);
             logResponse(response);
