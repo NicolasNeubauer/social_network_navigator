@@ -19,3 +19,7 @@ body {
     width:100%;
     position:absolute;
 }
+
+#loading {
+    width:100%
+}
